@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Button } from '@mui/material';
 import { useState } from 'react';
+import Message from './components/Message';
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
 
       {
         messages.map(message =>(
-          <p>{message}</p>
+          <Message text={message}/>
         ))
       }
     </div>
