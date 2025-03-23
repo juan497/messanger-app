@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-//import { IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 
 
@@ -24,7 +24,8 @@ function App() {
       <input value={input} onChange={event => setInput(event.target.value)}/>
 
       {/* button to send message */}
-      <button onClick={sendMessage}> send message</button>
+      {/*look up button in material ui to know the atributes. https://mui.com/material-ui/react-button/ */}
+      <Button variant = "outlined" color = "primary" onClick={sendMessage}> send message</Button>
 
       {/* list of messages*/}
 
