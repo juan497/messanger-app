@@ -9,7 +9,10 @@ function App() {
   const [input, setInput] = useState('');
   //console.log(input);
 
-  const [messages, setMessages] = useState(["hello", "hi", "whats up"]);
+  const [messages, setMessages] = useState([
+    {username: "Bob", text: "hello"},
+    {username: "lilyth", text: "whats up"}
+  ]);
   //console.log(messages);
 
   const [userName, setUserName] = useState('');
@@ -23,7 +26,7 @@ function App() {
 
   const sendMessage = (event) => {
     //event.preventDefault();
-    setMessages([...messages,input]);
+    setMessages([...messages,{username: userName, text: input}]);
     setInput('');
   }
   return (
@@ -43,7 +46,7 @@ function App() {
       {
         messages.map(message =>(
           //<h2>{message}</h2>
-          <Message text={message}/>
+          <Message username={message.username} text={message.text}/>
         ))
       }
     </div>
