@@ -9,10 +9,10 @@ function App() {
   const [input, setInput] = useState('');
   //console.log(input);
 
-  const [messages, setMessages] = useState([
-    {username: "Bob", text: "hello"},
-    {username: "lilyth", text: "whats up"}
-  ]);
+  const [messages, setMessages] = useState([//]);
+     {username: "Bob", text: "hello"},
+     {username: "lilyth", text: "whats up"}
+   ]);
   //console.log(messages);
 
   const [userName, setUserName] = useState('');
@@ -45,8 +45,9 @@ function App() {
 
       {
         messages.map(message =>(
-          //<h2>{message}</h2>
-          <Message username={message.username} text={message.text}/>
+          //<h2>{userName}</h2>
+          <Message username={userName} message={message}/>
+
         ))
       }
     </div>
