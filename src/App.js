@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { useState,useEffect } from 'react';
 import Message from './components/Message';
 import db from './firebase';
-import { getFirestore, collection, addDoc,query,onSnapshot,serverTimestamp  } from "firebase/firestore";
+import { getFirestore, collection, addDoc,query,onSnapshot,serverTimestamp, orderBy  } from "firebase/firestore";
 
 function App() {
   const [input, setInput] = useState('');
@@ -26,7 +26,7 @@ function App() {
     //   setMessanges(snapshot.docs.map(doc => ({id:doc.id, message: doc.data().message, userName: doc.data().userName})));
     // })
     //this is a listener it will add to our list when ever database changes
-    const q = query(collection(db, "messages"));
+    const q = query(collection(db, "messages"), orderBy("timestamp","desc"));
     onSnapshot(q, (snapshot) => {
       setMessages(snapshot.docs.map(doc => doc.data()));
     });
@@ -43,7 +43,7 @@ function App() {
     addDoc(collectionRef, {      
       text: input,
       username: userName,
-      //timestamp: serverTimestamp()
+      timestamp: serverTimestamp()
     });
 
     setInput('');
