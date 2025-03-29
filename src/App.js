@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { useState,useEffect } from 'react';
 import Message from './components/Message';
 import db from './firebase';
-import { getFirestore, collection, addDoc,query,onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, addDoc,query,onSnapshot,serverTimestamp  } from "firebase/firestore";
 
 function App() {
   const [input, setInput] = useState('');
@@ -37,7 +37,15 @@ function App() {
 
   const sendMessage = (event) => {
     //event.preventDefault();
-    setMessages([...messages,{username: userName, text: input}]);
+    event.preventDefault();
+    
+    const collectionRef = collection(db, 'messages');
+    addDoc(collectionRef, {      
+      text: input,
+      username: userName,
+      //timestamp: serverTimestamp()
+    });
+
     setInput('');
   }
   return (
