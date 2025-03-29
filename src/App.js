@@ -3,16 +3,14 @@ import './App.css';
 import { Button } from '@mui/material';
 import { useState,useEffect } from 'react';
 import Message from './components/Message';
-
+import db from './firebase';
+import { getFirestore, collection, addDoc,query,onSnapshot } from "firebase/firestore";
 
 function App() {
   const [input, setInput] = useState('');
   //console.log(input);
 
-  const [messages, setMessages] = useState([//]);
-     {username: "Bob", text: "hello"},
-     {username: "lilyth", text: "whats up"}
-   ]);
+  const [messages, setMessages] = useState([]);
   //console.log(messages);
 
   const [userName, setUserName] = useState('');
@@ -22,6 +20,19 @@ function App() {
     //console.log("ok");
   }, [])// condition is empty , so run only when app component loads.   otherwise run ounce evertime condition is updated.
   
+
+  useEffect(()=>{
+    // db.collection("messages").orderBy("timestamp","desc").onSnapshot(snapshot =>{
+    //   setMessanges(snapshot.docs.map(doc => ({id:doc.id, message: doc.data().message, userName: doc.data().userName})));
+    // })
+    //this is a listener it will add to our list when ever database changes
+    const q = query(collection(db, "messages"));
+    onSnapshot(q, (snapshot) => {
+      setMessages(snapshot.docs.map(doc => doc.data()));
+    });
+  },[])//only called ounce because db.collections is already a listneer, listneing ever time db changes
+
+
 
 
   const sendMessage = (event) => {
