@@ -28,7 +28,7 @@ function App() {
     //this is a listener it will add to our list when ever database changes
     const q = query(collection(db, "messages"), orderBy("timestamp","desc"));
     onSnapshot(q, (snapshot) => {
-      setMessages(snapshot.docs.map(doc => doc.data()));
+      setMessages(snapshot.docs.map(doc => ({id : doc.id , data: doc.data()})));
     });
   },[])//only called ounce because db.collections is already a listneer, listneing ever time db changes
 
@@ -65,7 +65,7 @@ function App() {
       {
         messages.map(message =>(
           //<h2>{userName}</h2>
-          <Message username={userName} message={message}/>
+          <Message key={message.id} username={userName} message={message.data}/>
 
         ))
       }
