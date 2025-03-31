@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import { Button } from '@mui/material';
+import { Button,FormControl,Input,IconButton } from '@mui/material';
 import { useState,useEffect } from 'react';
 import Message from './components/Message';
 import db from './firebase';
 import { getFirestore, collection, addDoc,query,onSnapshot,serverTimestamp, orderBy  } from "firebase/firestore";
+
 
 function App() {
   const [input, setInput] = useState('');
@@ -53,14 +54,18 @@ function App() {
       <h1> Messanger app </h1>
       <h2> welcome {userName}</h2>
 
-      {/*input field */}
-      <input value={input} onChange={event => setInput(event.target.value)}/>
+      <form className="app__form">
+        <FormControl className= "app__formControl">
+          <Input className= "app__input" placeholder="Enter a message..." value={input} onChange={event => setInput(event.target.value)} />
 
-      {/* button to send message */}
-      {/*look up button in material ui to know the atributes. https://mui.com/material-ui/react-button/ */}
-      <Button variant = "outlined" color = "primary" onClick={sendMessage}> send message</Button>
+          <IconButton className="app__iconButton" disabled={!input} type="submit" onClick={sendMessage} color="primary">
+              {/* <SendIcon/> */}
+              send
+          </IconButton>
 
-      {/* list of messages*/}
+        </FormControl>
+      </form>
+
 
       {
         messages.map(message =>(
